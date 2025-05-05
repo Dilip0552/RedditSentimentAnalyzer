@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
         hideError();
         
         // Make API request
-        fetch('http://127.0.0.1:5000/analyze', {
+        fetch('https://redditsentimentanalyzer-x72n.onrender.com/analyze', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -1270,7 +1270,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function loadAvailableDatasets() {
-        fetch('http://127.0.0.1:5000/get_available_datasets')
+        fetch('https://redditsentimentanalyzer-x72n.onrender.com/get_available_datasets')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to load available datasets');
@@ -1333,7 +1333,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setDatasetLoadingState(true);
         
         // Make API request to get dataset info with all subreddits
-        fetch('http://127.0.0.1:5000/analyze_dataset', {
+        fetch('https://redditsentimentanalyzer-x72n.onrender.com/analyze_dataset', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -1421,7 +1421,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Make API request
-        fetch('http://127.0.0.1:5000/analyze_dataset', {
+        fetch('https://redditsentimentanalyzer-x72n.onrender.com/analyze_dataset', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
