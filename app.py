@@ -14,11 +14,11 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from data_reader import get_dataset_analysis, safe_read_csv
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from flask_cors import CORS
 # Setup logging
 logging.basicConfig(level=logging.DEBUG)
-load_dotenv()
+# load_dotenv()
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)
@@ -43,9 +43,9 @@ except Exception as e:
 # Initialize PRAW (Reddit API client)
 try:
     # Check if Reddit API credentials are available
-    client_id = os.getenv("REDDIT_CLIENT_ID")
-    client_secret = os.getenv("REDDIT_CLIENT_SECRET")
-    user_agent = os.getenv("REDDIT_USER_AGENT")
+    client_id = os.environ.get("REDDIT_CLIENT_ID")
+    client_secret = os.environ.get("REDDIT_CLIENT_SECRET")
+    user_agent = os.environ.get("REDDIT_USER_AGENT")
     
     if not client_id or not client_secret or not user_agent:
         logging.error("Missing Reddit API credentials. Please ensure REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, and REDDIT_USER_AGENT are set.")
