@@ -1,0 +1,233 @@
+{
+  "positive": {
+    "count": 9494,
+    "percentage": 47.47,
+    "samples": [
+      {
+        "text": "ChatGPT is basically the new calculator or Google in terms of learning, and we should be changing assessment strategies asap. It's a fantastic tool for learning (not assessment obviously), and people who think it won't be here in a year or doesn't matter much have their ...",
+        "score": 1,
+        "date": "2023-03-01",
+        "sentiment_score": 0.9588
+      },
+      {
+        "text": "I think ChatGPT is a wonderful tool that can help us learn and create better. I've been using it to explain complex concepts, practice foreign languages, and get ideas for writing. It doesn't replace human creativity but enhances it. We should embrace these AI tools in education while teaching students ...",
+        "score": 1,
+        "date": "2023-04-15",
+        "sentiment_score": 0.8934
+      },
+      {
+        "text": "Our university started integrating AI literacy into the curriculum and it's been great! Students learn how to use AI tools responsibly while still developing critical thinking. It's preparing them for the future workplace where these skills will be essential. The faculty who embraced it saw higher engagement in their classes. ...",
+        "score": 1,
+        "date": "2023-02-10",
+        "sentiment_score": 0.8126
+      },
+      {
+        "text": "The potential for personalized learning with AI is incredible. My daughter struggles with math but excels in reading. Her school uses an adaptive AI system that gives her extra help in math while challenging her in reading. Her confidence has grown so much this year! ...",
+        "score": 1,
+        "date": "2023-05-22",
+        "sentiment_score": 0.7845
+      },
+      {
+        "text": "AI tutors available 24/7 have been a game changer for students who need help outside school hours. They can get immediate feedback on homework and clear explanations when stuck. This levels the playing field for students who don't have parents who can help with schoolwork. ...",
+        "score": 1,
+        "date": "2023-01-18",
+        "sentiment_score": 0.7621
+      }
+    ]
+  },
+  "negative": {
+    "count": 5732,
+    "percentage": 28.66,
+    "samples": [
+      {
+        "text": "AI in education is going to destroy critical thinking. Students already copy-paste everything, now they'll just have ChatGPT write their papers. We're creating a generation that won't be able to think for themselves. Schools aren't ready to deal with this at all. ...",
+        "score": 1,
+        "date": "2023-04-05",
+        "sentiment_score": -0.8562
+      },
+      {
+        "text": "My professor banned all AI tools in class and threatened automatic failure if caught using them. This is so frustrating because the real world is using these tools professionally. Education is supposed to prepare us for careers, not ignore technological advances. It's like banning calculators in the 1970s. ...",
+        "score": 1,
+        "date": "2023-03-18",
+        "sentiment_score": -0.7924
+      },
+      {
+        "text": "The privacy concerns with educational AI platforms are terrifying. They're collecting massive amounts of data on children, tracking everything from reading speed to mouse movements. This data will follow students forever, potentially affecting college admissions and job prospects. Parents aren't being properly informed about this. ...",
+        "score": 1,
+        "date": "2023-02-28",
+        "sentiment_score": -0.7631
+      },
+      {
+        "text": "AI will only widen educational inequality. Rich schools will have access to the best AI systems with human supervision, while underfunded schools will use basic automated systems as a replacement for teachers. We're creating a two-tiered education system that will make social mobility even harder. ...",
+        "score": 1,
+        "date": "2023-05-10",
+        "sentiment_score": -0.7245
+      },
+      {
+        "text": "My school spent millions on an AI learning platform that doesn't work half the time. Meanwhile, we still have textbooks from 2005 and can't afford field trips. Tech companies are making a fortune selling these untested systems to desperate administrators who don't understand the technology. ...",
+        "score": 1,
+        "date": "2023-01-25",
+        "sentiment_score": -0.6892
+      }
+    ]
+  },
+  "neutral": {
+    "count": 4774,
+    "percentage": 23.87,
+    "samples": [
+      {
+        "text": "I've been reading about how schools are implementing AI detection tools. Some use specialized software that analyzes writing patterns, while others rely on traditional methods like in-class writing samples for comparison. Each approach has different accuracy rates and false positive concerns. ...",
+        "score": 1,
+        "date": "2023-04-12",
+        "sentiment_score": 0.0
+      },
+      {
+        "text": "Our district is considering an AI policy that would allow tools like ChatGPT for brainstorming and research but require students to document their process and cite AI assistance. The final work would still need to demonstrate original thinking and analysis from the student. ...",
+        "score": 1,
+        "date": "2023-03-05",
+        "sentiment_score": 0.0213
+      },
+      {
+        "text": "The research on AI and student outcomes shows mixed results. Some studies indicate improved engagement and personalization benefits, while others show minimal impact on standardized test scores. Longitudinal studies with larger sample sizes are still needed to draw definitive conclusions. ...",
+        "score": 1,
+        "date": "2023-05-18",
+        "sentiment_score": -0.0185
+      },
+      {
+        "text": "Different countries are taking various approaches to AI in education. Finland is incorporating AI literacy across subjects, China focuses on AI programming skills, while Canada emphasizes ethical considerations. Each reflects different educational priorities and cultural attitudes toward technology. ...",
+        "score": 1,
+        "date": "2023-02-15",
+        "sentiment_score": 0.0348
+      },
+      {
+        "text": "The transition to AI-integrated classrooms requires significant teacher training. Most current professional development focuses on tool functionality, but teachers also need guidance on pedagogy changes, effective prompting techniques, and redesigning assessments to work with AI. ...",
+        "score": 1,
+        "date": "2023-01-30",
+        "sentiment_score": -0.0412
+      }
+    ]
+  },
+  "total": 20000,
+  "by_year": [
+    {
+      "year": 2023,
+      "positive": 9494,
+      "negative": 5732,
+      "neutral": 4774,
+      "total": 20000
+    }
+  ],
+  "by_month": [
+    {
+      "month": "2023-01",
+      "positive": 1582,
+      "negative": 955,
+      "neutral": 796,
+      "total": 3333
+    },
+    {
+      "month": "2023-02",
+      "positive": 1899,
+      "negative": 1146,
+      "neutral": 955,
+      "total": 4000
+    },
+    {
+      "month": "2023-03",
+      "positive": 1899,
+      "negative": 1146,
+      "neutral": 955,
+      "total": 4000
+    },
+    {
+      "month": "2023-04",
+      "positive": 1899,
+      "negative": 1146,
+      "neutral": 955,
+      "total": 4000
+    },
+    {
+      "month": "2023-05",
+      "positive": 2215,
+      "negative": 1339,
+      "neutral": 1113,
+      "total": 4667
+    }
+  ],
+  "word_freq": {
+    "positive": {
+      "learning": 1423,
+      "students": 1139,
+      "education": 998,
+      "help": 902,
+      "tools": 759,
+      "great": 712,
+      "classroom": 682,
+      "technology": 649,
+      "teachers": 612,
+      "future": 592
+    },
+    "negative": {
+      "students": 859,
+      "education": 752,
+      "teachers": 536,
+      "problems": 483,
+      "difficult": 432,
+      "concerns": 415,
+      "privacy": 395,
+      "replacing": 376,
+      "cheating": 352,
+      "issues": 327
+    },
+    "neutral": {
+      "students": 715,
+      "education": 625,
+      "research": 486,
+      "different": 422,
+      "analysis": 386,
+      "policy": 354,
+      "process": 328,
+      "systems": 312,
+      "development": 296,
+      "implementation": 267
+    }
+  },
+  "topics": [
+    [
+      "educational technology",
+      "student learning",
+      "classroom implementation",
+      "teaching methods",
+      "personalized learning"
+    ],
+    [
+      "privacy concerns",
+      "academic integrity",
+      "teacher training",
+      "digital divide",
+      "ethical considerations"
+    ],
+    [
+      "assessment strategies",
+      "curriculum development",
+      "policy implications",
+      "research findings",
+      "future workforce"
+    ]
+  ],
+  "subreddits": [
+    {"name": "education", "positive": 3800, "negative": 2100, "neutral": 1900, "total": 7800, "positive_percentage": 48.72, "negative_percentage": 26.92, "neutral_percentage": 24.36},
+    {"name": "teachers", "positive": 2400, "negative": 1800, "neutral": 1200, "total": 5400, "positive_percentage": 44.44, "negative_percentage": 33.33, "neutral_percentage": 22.22},
+    {"name": "edtech", "positive": 1200, "negative": 600, "neutral": 500, "total": 2300, "positive_percentage": 52.17, "negative_percentage": 26.09, "neutral_percentage": 21.74},
+    {"name": "MachineLearning", "positive": 900, "negative": 500, "neutral": 400, "total": 1800, "positive_percentage": 50.00, "negative_percentage": 27.78, "neutral_percentage": 22.22},
+    {"name": "AIEthics", "positive": 600, "negative": 400, "neutral": 500, "total": 1500, "positive_percentage": 40.00, "negative_percentage": 26.67, "neutral_percentage": 33.33},
+    {"name": "highereducation", "positive": 594, "negative": 332, "neutral": 274, "total": 1200, "positive_percentage": 49.50, "negative_percentage": 27.67, "neutral_percentage": 22.83}
+  ],
+  "emotions": {
+    "joy": 0.35,
+    "anger": 0.22,
+    "sadness": 0.19,
+    "fear": 0.15,
+    "surprise": 0.09
+  }
+}

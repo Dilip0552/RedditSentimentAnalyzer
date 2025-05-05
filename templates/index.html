@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit Sentiment Analyzer</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Inter Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center" 
+                             style="width: 50px; height: 50px; background-color: rgba(255, 255, 255, 0.2);">
+                            <i class="fas fa-chart-pie fa-lg text-white"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="app-title">Reddit Sentiment Analyzer</h1>
+                        <p class="app-subtitle">Analyze sentiment patterns in Reddit discussions</p>
+                    </div>
+                </div>
+                <div>
+                    <button id="theme-toggle" class="btn btn-outline-light" type="button">
+                        <i class="fas fa-moon"></i>
+                        <span class="ms-1">Dark Mode</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Mode Selection Container -->
+        <div class="card card-dashboard mb-4" id="mode-selection">
+            <div class="card-header d-flex align-items-center">
+                <i class="fas fa-sliders me-2 text-primary"></i>
+                <h2 class="card-title mb-0">Choose Analysis Mode</h2>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm mode-card" data-mode="live-analysis">
+                            <div class="card-body p-4 text-center">
+                                <div class="rounded-circle bg-primary-100 d-flex align-items-center justify-content-center mx-auto mb-3" 
+                                     style="width: 70px; height: 70px;">
+                                    <i class="fas fa-bolt fa-2x text-primary-600"></i>
+                                </div>
+                                <h3 class="h5 fw-semibold mb-2">Live Analysis</h3>
+                                <p class="text-muted mb-3">Analyze Reddit comments in real-time for any topic and subreddit</p>
+                                <div class="badge bg-success px-3 py-2 d-none mode-selected">
+                                    <i class="fas fa-check me-1"></i>Selected
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm mode-card" data-mode="preanalyzed">
+                            <div class="card-body p-4 text-center">
+                                <div class="rounded-circle bg-primary-100 d-flex align-items-center justify-content-center mx-auto mb-3"
+                                     style="width: 70px; height: 70px;">
+                                    <i class="fas fa-database fa-2x text-primary-600"></i>
+                                </div>
+                                <h3 class="h5 fw-semibold mb-2">Pre-Analyzed Datasets</h3>
+                                <p class="text-muted mb-3">Explore sentiment patterns from pre-scraped Reddit comments</p>
+                                <div class="badge bg-success px-3 py-2 d-none mode-selected">
+                                    <i class="fas fa-check me-1"></i>Selected
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Live analysis section (initially hidden) -->
+        <div class="card card-dashboard mb-4 d-none" id="live-analysis-section">
+            <div class="card-header d-flex align-items-center">
+                <i class="fas fa-bolt me-2 text-primary"></i>
+                <h2 class="card-title mb-0">Live Analysis</h2>
+            </div>
+            <div class="card-body p-4">
+                <form id="search-form">
+                    <div class="row g-4">
+                        <div class="col-md-5">
+                            <label for="topic" class="form-label fw-medium">Topic to Analyze</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-search text-primary"></i>
+                                </span>
+                                <input type="text" class="form-control custom-input" id="topic" 
+                                       placeholder="Enter a topic (e.g., AI, cryptocurrency)" required>
+                            </div>
+                            <div class="form-text mt-2">
+                                <i class="fas fa-info-circle me-1 text-primary"></i>
+                                Try specific topics for more accurate results
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <label for="subreddit" class="form-label fw-medium">Subreddit</label>
+                            <div class="input-group">
+                                <span class="input-group-text">r/</span>
+                                <input type="text" class="form-control custom-input" id="subreddit" 
+                                       placeholder="politics, technology, all..." value="all">
+                            </div>
+                            <div class="form-text mt-2">
+                                <i class="fas fa-users me-1 text-primary"></i>
+                                Leave as "all" to search across all subreddits
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="d-flex flex-column h-100">
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="include-emotion" checked>
+                                        <label class="form-check-label" for="include-emotion">
+                                            <i class="fas fa-smile-beam me-1 text-primary"></i>
+                                            Detect Emotions
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mt-auto">
+                                    <button type="submit" class="btn btn-primary w-100" id="analyze-btn">
+                                        <i class="fas fa-chart-pie me-2"></i>
+                                        <span id="btn-text">Analyze Sentiment</span>
+                                        <span id="loading-spinner" class="spinner-border spinner-border-sm ms-1 d-none" role="status" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Pre-analyzed dataset section (initially hidden) -->
+        <div class="card card-dashboard mb-4 d-none" id="preanalyzed-section">
+            <div class="card-header d-flex align-items-center">
+                <i class="fas fa-database me-2 text-primary"></i>
+                <h2 class="card-title mb-0">Pre-Analyzed Datasets</h2>
+            </div>
+            <div class="card-body p-4">
+                <form id="dataset-form">
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <label for="dataset-select" class="form-label fw-medium">Select Dataset</label>
+                            <select class="form-select custom-select" id="dataset-select" required>
+                                <option value="" selected disabled>Choose a pre-analyzed dataset...</option>
+                                <!-- Options will be populated by JavaScript -->
+                            </select>
+                            <div class="form-text mt-2">
+                                <i class="fas fa-database me-1 text-primary"></i>
+                                These datasets contain pre-scraped comments from popular discussions
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="custom-divider"></div>
+                    
+                    <div class="row g-4 mb-4" id="filtered-options">
+                        <div class="col-md-5">
+                            <label for="filter-topic" class="form-label fw-medium">Filter by Keywords</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-filter text-primary"></i>
+                                </span>
+                                <input type="text" class="form-control custom-input" id="filter-topic" 
+                                       placeholder="Filter by specific keywords...">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <label for="filter-subreddit" class="form-label fw-medium">Filter by Subreddit</label>
+                            <select class="form-select custom-select" id="filter-subreddit">
+                                <option value="all" selected>All Subreddits</option>
+                                <!-- Subreddit options will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="d-flex flex-column h-100">
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="dataset-include-emotion" checked>
+                                        <label class="form-check-label" for="dataset-include-emotion">
+                                            <i class="fas fa-smile-beam me-1 text-primary"></i>
+                                            Include Emotion Analysis
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mt-auto">
+                                    <button type="submit" class="btn btn-primary w-100" id="analyze-dataset-btn">
+                                        <i class="fas fa-chart-bar me-2"></i>
+                                        <span id="dataset-btn-text">Analyze Dataset</span>
+                                        <span id="dataset-loading-spinner" class="spinner-border spinner-border-sm ms-1 d-none" role="status" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Error message display -->
+        <div class="alert alert-danger d-none" id="error-message" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i>
+            <span id="error-text">Error message will appear here</span>
+        </div>
+        
+        <!-- Results section (initially hidden) -->
+        <div id="results-container" class="d-none">
+            <!-- Header info card -->
+            <div class="card card-dashboard mb-4">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="me-3">
+                            <div class="rounded-circle bg-primary-100 d-flex align-items-center justify-content-center"
+                                 style="width: 48px; height: 48px;">
+                                <i class="fas fa-poll fa-lg text-primary-600"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 class="h4 mb-1 fw-bold">Sentiment Analysis Results</h2>
+                            <p class="mb-0 text-muted" id="result-description">Analysis of discussions on <span id="topic-display" class="fw-medium"></span> in r/<span id="subreddit-display" class="fw-medium"></span></p>
+                        </div>
+                    </div>
+                    
+                    <div id="result-meta" class="d-flex mt-4 flex-wrap">
+                        <div class="me-4 mb-2">
+                            <span class="d-flex align-items-center text-muted">
+                                <i class="fas fa-comments me-2 text-primary-500"></i>
+                                <span id="total-comments-count">0</span> comments analyzed
+                            </span>
+                        </div>
+                        <div class="me-4 mb-2">
+                            <span class="d-flex align-items-center text-muted">
+                                <i class="fas fa-calendar-alt me-2 text-primary-500"></i>
+                                Time period: <span id="time-period" class="ms-1">N/A</span>
+                            </span>
+                        </div>
+                        <div class="me-4 mb-2">
+                            <span class="d-flex align-items-center text-muted">
+                                <i class="fas fa-chart-line me-2 text-primary-500"></i>
+                                Sentiment volatility: <span id="sentiment-volatility" class="ms-1">N/A</span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div id="sentiment-summary" class="mt-3 alert alert-primary bg-primary-50 border-start border-4 border-primary">
+                        <!-- Sentiment summary will be inserted by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card h-100 card-dashboard">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-chart-pie me-2 text-primary"></i>Sentiment Distribution
+                            </h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <div id="sentiment-stats">
+                                <div class="d-flex justify-content-center mb-4">
+                                    <canvas id="sentiment-doughnut" height="200"></canvas>
+                                </div>
+                                <div class="table-responsive mt-4">
+                                    <table class="table table-sm">
+                                        <thead class="text-muted small">
+                                            <tr>
+                                                <th>SENTIMENT</th>
+                                                <th class="text-end">COUNT</th>
+                                                <th class="text-end">PERCENTAGE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="sentiment-table" class="fw-medium">
+                                            <!-- Table rows will be inserted by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-8">
+                    <div class="card h-100 card-dashboard">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h3 class="card-title">
+                                <i class="fas fa-chart-line me-2 text-primary"></i>Sentiment Timeline
+                            </h3>
+                            <div id="chart-controls" class="btn-group">
+                                <!-- Controls will be inserted by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div id="chart-container">
+                                <canvas id="timeline-chart" height="220"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Statistical Summary Section -->
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="card card-dashboard">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-analytics me-2 text-primary"></i>Key Metrics & Insights
+                            </h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <div id="analysis-summary" class="row g-4">
+                                <!-- Analysis summary will be inserted by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Emotions Analysis Section -->
+            <div class="row mb-4" id="emotions-container">
+                <div class="col-md-6">
+                    <div class="card h-100 card-dashboard">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-smile-beam me-2 text-primary"></i>Emotion Distribution
+                            </h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-center mb-3">
+                                <canvas id="emotions-chart" height="220"></canvas>
+                            </div>
+                            <div class="text-center mt-3 small">
+                                <p class="text-muted">Emotion analysis detects the primary feelings expressed in comments beyond simple positive/negative sentiment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card h-100 card-dashboard">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-lightbulb me-2 text-primary"></i>Key Discussion Topics
+                            </h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <div id="topics-container">
+                                <div class="list-group rounded bg-light p-1">
+                                    <!-- Topics will be inserted by JavaScript -->
+                                    <div class="text-muted text-center p-4" id="no-topics-message">
+                                        <i class="fas fa-search fa-2x mb-3 opacity-50"></i>
+                                        <p>No topics have been detected yet. Try analyzing a dataset with more comments.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-3 small">
+                                <p class="text-muted">Topics are automatically extracted using natural language processing techniques</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Word Frequency Section -->
+            <div class="row mb-4">
+                <div class="col-12 mb-3">
+                    <h3 class="section-heading">
+                        <i class="fas fa-tags me-2 text-primary"></i>Frequently Used Keywords
+                    </h3>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-dashboard mb-4">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="card-title mb-0">
+                                    Positive Keywords
+                                </h4>
+                                <div class="badge rounded-pill bg-success-100 text-success-700 px-3 py-2">
+                                    <i class="fas fa-thumbs-up"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div id="positive-keywords" class="word-cloud">
+                                <!-- Word cloud will be inserted by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card card-dashboard mb-4">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="card-title mb-0">
+                                    Negative Keywords
+                                </h4>
+                                <div class="badge rounded-pill bg-error-100 text-error-700 px-3 py-2">
+                                    <i class="fas fa-thumbs-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div id="negative-keywords" class="word-cloud">
+                                <!-- Word cloud will be inserted by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card card-dashboard mb-4">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="card-title mb-0">
+                                    Neutral Keywords
+                                </h4>
+                                <div class="badge rounded-pill bg-neutral-200 text-neutral-700 px-3 py-2">
+                                    <i class="fas fa-balance-scale"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div id="neutral-keywords" class="word-cloud">
+                                <!-- Word cloud will be inserted by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Comments Section -->
+            <div class="row mb-4">
+                <div class="col-12 mb-3">
+                    <h3 class="section-heading">
+                        <i class="fas fa-comments me-2 text-primary"></i>Sample Comments
+                    </h3>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-dashboard h-100">
+                        <div class="card-header bg-success-50">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="card-title mb-0 text-success-700">
+                                    <i class="fas fa-thumbs-up me-2"></i>Positive Comments
+                                </h4>
+                                <span class="badge rounded-pill bg-success text-white" id="positive-count">0</span>
+                            </div>
+                        </div>
+                        <div id="positive-comments" class="comment-container p-3">
+                            <!-- Comments will be inserted by JavaScript -->
+                            <p class="text-muted text-center py-4">
+                                <i class="fas fa-search opacity-50 d-block mb-2"></i>
+                                No positive comments found
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card card-dashboard h-100">
+                        <div class="card-header bg-error-50">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="card-title mb-0 text-error-700">
+                                    <i class="fas fa-thumbs-down me-2"></i>Negative Comments
+                                </h4>
+                                <span class="badge rounded-pill bg-danger text-white" id="negative-count">0</span>
+                            </div>
+                        </div>
+                        <div id="negative-comments" class="comment-container p-3">
+                            <!-- Comments will be inserted by JavaScript -->
+                            <p class="text-muted text-center py-4">
+                                <i class="fas fa-search opacity-50 d-block mb-2"></i>
+                                No negative comments found
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card card-dashboard h-100">
+                        <div class="card-header bg-neutral-100">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="card-title mb-0 text-neutral-700">
+                                    <i class="fas fa-balance-scale me-2"></i>Neutral Comments
+                                </h4>
+                                <span class="badge rounded-pill bg-secondary text-white" id="neutral-count">0</span>
+                            </div>
+                        </div>
+                        <div id="neutral-comments" class="comment-container p-3">
+                            <!-- Comments will be inserted by JavaScript -->
+                            <p class="text-muted text-center py-4">
+                                <i class="fas fa-search opacity-50 d-block mb-2"></i>
+                                No neutral comments found
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Initial empty state message -->
+        <div id="empty-state" class="card card-dashboard">
+            <div class="card-body text-center p-5">
+                <div class="py-4">
+                    <div class="rounded-circle bg-primary-100 d-flex align-items-center justify-content-center mx-auto mb-4"
+                         style="width: 80px; height: 80px;">
+                        <i class="fas fa-search fa-2x text-primary-600"></i>
+                    </div>
+                    <h2 class="h4 mb-3 fw-bold">Ready to Analyze Reddit Sentiment</h2>
+                    <p class="text-muted mb-4">Choose your analysis mode above and discover how Reddit users feel about any topic</p>
+                    
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="card border bg-light p-3">
+                                        <i class="fas fa-bolt text-primary mb-2"></i>
+                                        <h3 class="h6 fw-bold">Live Analysis</h3>
+                                        <p class="small text-muted mb-0">Fetch and analyze Reddit comments in real-time on any topic</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card border bg-light p-3">
+                                        <i class="fas fa-database text-primary mb-2"></i>
+                                        <h3 class="h6 fw-bold">Pre-analyzed Datasets</h3>
+                                        <p class="small text-muted mb-0">Explore pre-processed datasets on popular discussion topics</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- <footer class="mt-5 text-center text-muted">
+            <p class="small">
+                This tool performs real-time sentiment analysis on Reddit comments. 
+                No data is stored, cached, or downloaded to CSV files.
+            </p>
+        </footer> -->
+    </div>
+    
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

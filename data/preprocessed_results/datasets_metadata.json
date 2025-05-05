@@ -1,0 +1,58 @@
+[
+  {
+    "id": "comments_AI_in_Education_all_subreddits",
+    "display_name": "AI in Education - All Subreddits",
+    "topic": "AI in Education",
+    "subreddit": "all",
+    "comment_count": 136037,
+    "subreddits": ["education", "teachers", "edtech", "MachineLearning", "AIEthics", "highereducation"],
+    "processed_comments": 20000,
+    "sentiment": {
+      "positive": 47.47,
+      "negative": 28.66,
+      "neutral": 23.87
+    }
+  },
+  {
+    "id": "comments_Is_GPT-4_Replacing_Programmers_all_subreddits",
+    "display_name": "Is GPT-4 Replacing Programmers",
+    "topic": "Is GPT-4 Replacing Programmers",
+    "subreddit": "all",
+    "comment_count": 13122,
+    "subreddits": ["programming", "cscareerquestions", "learnprogramming", "ArtificialIntelligence", "MachineLearning", "technology", "futurology"],
+    "processed_comments": 2000,
+    "sentiment": {
+      "positive": 58.85,
+      "negative": 22.85,
+      "neutral": 18.30
+    }
+  },
+  {
+    "id": "comments_Banning_TikTok_in_the_US_all_subreddits",
+    "display_name": "Banning TikTok in the US",
+    "topic": "Banning TikTok in the US",
+    "subreddit": "all",
+    "comment_count": 146935,
+    "subreddits": ["politics", "technology", "news", "worldnews", "conservative", "AskReddit", "privacy"],
+    "processed_comments": 2000,
+    "sentiment": {
+      "positive": 36.25,
+      "negative": 39.55,
+      "neutral": 24.20
+    }
+  },
+  {
+    "id": "comments_Cryptocurrency_and_Blockchain_all_subreddits",
+    "display_name": "Cryptocurrency and Blockchain",
+    "topic": "Cryptocurrency and Blockchain",
+    "subreddit": "all",
+    "comment_count": 62139,
+    "subreddits": ["CryptoCurrency", "Bitcoin", "ethereum", "NFT", "CryptoMarkets", "btc", "blockchain"],
+    "processed_comments": 2000,
+    "sentiment": {
+      "positive": 38.65,
+      "negative": 32.45,
+      "neutral": 28.90
+    }
+  }
+]
