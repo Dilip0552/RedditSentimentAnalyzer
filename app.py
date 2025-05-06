@@ -1016,15 +1016,15 @@ def analyze_dataset():
         # Check if we have cached results for this combination
         if cache_key in csv_analysis_cache:
             return jsonify(csv_analysis_cache[cache_key])
-        
+        print("DATASET_ID>>>>>",dataset_id)
         # Find the CSV file in various locations
         csv_files = []
         if os.path.exists(CSV_DATA_DIR):
             csv_files.extend(glob.glob(os.path.join(CSV_DATA_DIR, dataset_id)))
         
         # Check root directory
-        csv_files.extend(glob.glob(dataset_id))
-        
+        csv_files.extend(glob.glob(f"{dataset_id}.csv"))
+        print("glob: ",glob.glob(dataset_id))
         # Check attached_assets directory
         attached_assets_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'attached_assets')
         if os.path.exists(attached_assets_dir):
@@ -1032,7 +1032,7 @@ def analyze_dataset():
         
         if not csv_files:
             return jsonify({"error": f"Dataset file {dataset_id} not found"}), 404
-        
+        print(csv_files)
         file_path = csv_files[0]
         logging.info(f"Found dataset file at {file_path}")
         
