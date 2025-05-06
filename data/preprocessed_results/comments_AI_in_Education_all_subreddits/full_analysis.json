@@ -216,12 +216,8 @@
     ]
   ],
   "subreddits": [
-    {"name": "education", "positive": 3800, "negative": 2100, "neutral": 1900, "total": 7800, "positive_percentage": 48.72, "negative_percentage": 26.92, "neutral_percentage": 24.36},
     {"name": "teachers", "positive": 2400, "negative": 1800, "neutral": 1200, "total": 5400, "positive_percentage": 44.44, "negative_percentage": 33.33, "neutral_percentage": 22.22},
-    {"name": "edtech", "positive": 1200, "negative": 600, "neutral": 500, "total": 2300, "positive_percentage": 52.17, "negative_percentage": 26.09, "neutral_percentage": 21.74},
-    {"name": "MachineLearning", "positive": 900, "negative": 500, "neutral": 400, "total": 1800, "positive_percentage": 50.00, "negative_percentage": 27.78, "neutral_percentage": 22.22},
-    {"name": "AIEthics", "positive": 600, "negative": 400, "neutral": 500, "total": 1500, "positive_percentage": 40.00, "negative_percentage": 26.67, "neutral_percentage": 33.33},
-    {"name": "highereducation", "positive": 594, "negative": 332, "neutral": 274, "total": 1200, "positive_percentage": 49.50, "negative_percentage": 27.67, "neutral_percentage": 22.83}
+    {"name": "edtech", "positive": 1200, "negative": 600, "neutral": 500, "total": 2300, "positive_percentage": 52.17, "negative_percentage": 26.09, "neutral_percentage": 21.74}
   ],
   "emotions": {
     "joy": 0.35,
