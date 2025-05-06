@@ -1023,8 +1023,8 @@ def analyze_dataset():
             csv_files.extend(glob.glob(os.path.join(CSV_DATA_DIR, dataset_id)))
         
         # Check root directory
-        csv_files.extend(glob.glob(dataset_id))
-        
+        # csv_files.extend(glob.glob(dataset_id))
+        csv_files.extend(glob.glob(f"{dataset_id}.csv"))
         # Check attached_assets directory
         attached_assets_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'attached_assets')
         if os.path.exists(attached_assets_dir):
